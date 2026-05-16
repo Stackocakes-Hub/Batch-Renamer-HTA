@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Batch Rename</title>
+<HTA:APPLICATION
+    ID="BatchRenameHTA"
+    APPLICATIONNAME="Batch Rename"
+    BORDER="thin"
+    CAPTION="yes"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SYSMENU="yes"
+    WINDOWSTATE="normal"
+    SCROLL="no"
+    INNERBORDER="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    CONTEXTMENU="no"
+    RESIZABLE="no"
+/>
+<link rel="stylesheet" href="scripts/style.css">
+<script language="VBScript" src="Scripts/dom.vbs"></script>
+<script language="VBScript" src="Scripts/rename.vbs"></script>
+<script language="VBScript" src="Scripts/ruleset.vbs"></script>
+<script language="VBScript" src="Scripts/ActiveFolders.vbs"></script>
+</head>
+<body id="pBody">
+
+<div class="card">
+    <h1>Batch Rename</h1>
+    
+    <div class="form-group">
+        <label for="selRuleset">Ruleset:</label>
+        <select id="selRuleset" style="flex:1; padding:6px; border:1px solid #999; border-radius:4px;" onchange="LoadSelectedRuleset()"></select>
+        <button class="btn btn-save" onclick="SaveCurrentAsRuleset()">Save</button>&nbsp;
+        <button class="btn btn-load" onclick="ImportRuleset()">Import</button>&nbsp;
+        <button class="btn" style="background:#dc2626;" onclick="RemoveSelectedRuleset()">Remove</button>&nbsp;
+        <button class="btn" style="background:#7c3aed;" onclick="ExportSelectedRuleset()">Export</button>&nbsp;
+    </div>
+
+    <div class="form-group">
+        <button class="btn" onclick="Getfolder_Onclick()">Browse...</button>
+        <br><Select Id=ActiveFolders style="margin-top: 10px; width: 97%">Select Folder</Select>
+		<div id="txtFolder" class="folder-display" style="margin-top: 10px;">Select folder to rename files in</div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="section-title">
+        Replace rules
+        <span class="tooltip">?
+            <span class="tooltiptext">Enter text to find. Leave "Replace with" blank to remove it.</span>
+        </span>
+    </div>
+
+    <div class="rules-header">
+        <span class="header-search">Find text</span>
+        <span class="header-replace">Replace with</span>
+        <span class="header-delete"></span>
+    </div>
+    <div id="rules-container"></div>
+    <div class="btn-bar">
+        <button class="btn btn-add" onclick="AddRow()">+ Add rule</button>&nbsp;
+        <button class="btn" onclick="Preview()">Preview</button>&nbsp;
+        <button class="btn btn-rename" onclick="RunRename()">Rename now</button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="section-title">Log</div>
+    <div id="log" class="log"></div><br>
+	<button class="btn btn-settings" onclick="EditMaxRows()">&#9881;</button>&nbsp;
+        
+</div>
+<br>
+</body>
+</html>
